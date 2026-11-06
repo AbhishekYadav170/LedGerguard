@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-
+import { generateToken } from "../utils/generateToken";
 import Tenant from "../models/Tenants";
 import User from "../models/User";
 
@@ -48,4 +48,43 @@ export const signupService = async (
     });
 
   return user;
+};
+export const loginService = async (
+  email: string,
+  password: string
+) => {
+
+  const user = await User.findOne({
+    email,
+  });
+
+  if (!user) {
+    throw new Error(
+      "Invalid Credentials"
+    );
+  }
+
+  const isMatch =
+    await bcrypt.compare(
+      password,
+      user.passwordHash
+    );
+
+  if (!isMatch) {
+    throw new Error(
+      "Invalid Credentials"
+    );
+  }
+
+  const token =
+    generateToken({
+      userId: user._id,
+      tenantId: user.tenantId,
+      role: user.role,
+    });
+
+  return {
+    user,
+    token,
+  };
 };
