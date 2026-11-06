@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { signupService } from "../services/auth.service";
-import {
- loginService
-} from "../services/auth.service";
+import { loginService } from "../services/auth.service";
+import { AuthRequest }
+from "../middleware/auth.middleware";
 
 export const signup = async (
   req: Request,
@@ -54,5 +54,17 @@ export const login = async (
     });
 
   }
+
+};
+
+export const getProfile = (
+  req: AuthRequest,
+  res: Response
+) => {
+
+  res.status(200).json({
+    success: true,
+    user: req.user,
+  });
 
 };
