@@ -3,6 +3,9 @@ import cors from "cors";
 import helmet from "helmet";
 
 import authRoutes from "./routes/auth.routes";
+import customerRoutes
+from "./routes/customer.routes";
+
 
 const app = express();
 
@@ -18,5 +21,11 @@ app.use(
   "/api/auth",
   authRoutes
 );
+
+app.use(
+ "/api/customers",
+ customerRoutes
+);
+
 
 export default app;
