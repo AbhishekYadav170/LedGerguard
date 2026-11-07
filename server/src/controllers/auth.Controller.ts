@@ -68,3 +68,16 @@ export const getProfile = (
   });
 
 };
+
+export const ownerOnlyRoute = (
+  req: AuthRequest,
+  res: Response
+) => {
+
+  res.status(200).json({
+    success: true,
+    message:
+      "Welcome Owner",
+  });
+
+};

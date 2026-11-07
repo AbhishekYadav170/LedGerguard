@@ -1,8 +1,14 @@
 import { Router } from "express";
 
-import { signup,login, getProfile } from "../controllers/auth.controller";
+import { signup,login, getProfile } from "../controllers/auth.Controller";
 import { authMiddleware, } from "../middleware/auth.middleware";
+import {
+  ownerOnlyRoute,
+} from "../controllers/auth.Controller";
 
+import {
+  authorize,
+} from "../middleware/role.middleware";
 
 
 const router = Router();
@@ -21,6 +27,13 @@ router.get(
   "/me",
   authMiddleware,
   getProfile
+);
+
+router.get(
+  "/owner-only",
+  authMiddleware,
+  authorize("Owner"),
+  ownerOnlyRoute
 );
 
 export default router;
