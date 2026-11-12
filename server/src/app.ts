@@ -5,6 +5,8 @@ import helmet from "helmet";
 import authRoutes from "./routes/auth.routes";
 import customerRoutes
 from "./routes/customer.routes";
+import teamRoutes
+from "./routes/team.routes";
 
 
 const app = express();
@@ -27,5 +29,9 @@ app.use(
  customerRoutes
 );
 
+app.use(
+ "/api/team",
+ teamRoutes
+);
 
 export default app;
