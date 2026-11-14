@@ -3,6 +3,7 @@ import { signup,login, getProfile } from "../controllers/auth.Controller";
 import { authMiddleware, } from "../middleware/auth.middleware";
 import { ownerOnlyRoute, } from "../controllers/auth.Controller";
 import { authorize, } from "../middleware/role.middleware";
+import { refreshAccessToken,} from "../controllers/auth.Controller";
 
 const router = Router();
 
@@ -28,5 +29,11 @@ router.get(
   authorize("Owner"),
   ownerOnlyRoute
 );
+
+router.post(
+  "/refresh-token",
+  refreshAccessToken
+);
+
 
 export default router;

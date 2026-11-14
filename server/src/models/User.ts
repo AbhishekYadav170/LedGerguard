@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema(
       ref: "Tenant",
       required: true,
     },
+    refreshToken: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
