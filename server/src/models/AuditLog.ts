@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const auditLogSchema =
-new mongoose.Schema({
-
+const auditLogSchema = new mongoose.Schema({
   action: {
     type: String,
     required: true,
@@ -22,7 +20,6 @@ new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-
 });
 
 export default mongoose.model(
