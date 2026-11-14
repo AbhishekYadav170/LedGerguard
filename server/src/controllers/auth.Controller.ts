@@ -139,3 +139,22 @@ export const refreshAccessToken = async (
 
   }
 };
+
+export const logout = async (
+  req: AuthRequest,
+  res: Response
+) => {
+
+  await User.findByIdAndUpdate(
+    req.user.userId,
+    {
+      refreshToken: null,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Logged out",
+  });
+
+};

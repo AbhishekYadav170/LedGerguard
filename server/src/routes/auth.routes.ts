@@ -4,6 +4,8 @@ import { authMiddleware, } from "../middleware/auth.middleware";
 import { ownerOnlyRoute, } from "../controllers/auth.Controller";
 import { authorize, } from "../middleware/role.middleware";
 import { refreshAccessToken,} from "../controllers/auth.Controller";
+import { logout } from "../controllers/auth.Controller";
+
 
 const router = Router();
 
@@ -35,5 +37,10 @@ router.post(
   refreshAccessToken
 );
 
+router.post(
+  "/logout",
+  authMiddleware,
+  logout
+);
 
 export default router;
