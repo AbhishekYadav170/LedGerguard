@@ -1,8 +1,7 @@
+import { createAuditLog } from "../services/audit.service";
 import { Response } from "express";
-
 import { AuthRequest }
 from "../middleware/auth.middleware";
-
 import {
  createCustomerService,
  getCustomersService,
@@ -27,6 +26,11 @@ async (
     req.user.tenantId
    );
 
+   await createAuditLog(
+      "CUSTOMER_CREATED",
+     req.user.userId,
+     req.user.tenantId
+    );
   res.status(201).json({
    success:true,
    data:customer,
@@ -71,3 +75,4 @@ async (
  }
 
 };
+

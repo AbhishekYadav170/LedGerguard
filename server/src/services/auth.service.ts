@@ -2,6 +2,8 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken";
 import Tenant from "../models/Tenants";
 import User from "../models/User";
+import { createAuditLog }
+from "./audit.service";
 import { generateRefreshToken } from "../utils/generateRefreshToken";
 
 interface SignupData {
@@ -51,18 +53,11 @@ export const loginService = async (email: string, password: string) => {
     throw new Error("Invalid Credentials");
   }
 
-  // const token =
-  //   generateToken({
-  //     userId: user._id,
-  //     tenantId: user.tenantId,
-  //     role: user.role,
-  //   });
-
-  // return {
-  //   user,
-  //   token,
-  // };
-
+  await createAuditLog(
+     "LOGIN",
+     user._id.toString(),
+     user.tenantId.toString()
+  );
   const accessToken = generateToken({
     userId: user._id,
     tenantId: user.tenantId,

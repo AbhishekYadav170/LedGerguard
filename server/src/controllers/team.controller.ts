@@ -1,3 +1,5 @@
+import { createAuditLog }
+from "../services/audit.service";
 import { Response } from "express";
 
 import { AuthRequest }
@@ -6,6 +8,8 @@ from "../middleware/auth.middleware";
 import {
  createTeamMemberService,
 } from "../services/team.service";
+
+
 
 export const createTeamMember =
 async (
@@ -20,6 +24,12 @@ async (
     req.body,
     req.user.tenantId
    );
+
+   await createAuditLog(
+      "TEAM_MEMBER_CREATED",
+       req.user.userId,
+       req.user.tenantId
+    );
 
   res.status(201).json({
    success: true,
