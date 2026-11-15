@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-
 import authRoutes from "./routes/auth.routes";
 import customerRoutes
 from "./routes/customer.routes";
 import teamRoutes
 from "./routes/team.routes";
+import auditRoutes from "./routes/audit.routes";
 
 
 const app = express();
@@ -33,5 +33,7 @@ app.use(
  "/api/team",
  teamRoutes
 );
+
+
 
 export default app;
