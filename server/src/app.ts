@@ -34,6 +34,9 @@ app.use(
  teamRoutes
 );
 
-
+app.use(
+  "/api/audit-logs",
+  auditRoutes
+);
 
 export default app;
