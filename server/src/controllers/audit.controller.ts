@@ -2,7 +2,6 @@ import { Response } from "express";
 import AuditLog from "../models/AuditLog";
 import { AuthRequest } from "../middleware/auth.middleware";
 
-
 export const getAuditLogs = async (
   req: AuthRequest,
   res: Response
