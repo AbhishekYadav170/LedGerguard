@@ -1,5 +1,4 @@
-import { createAuditLog }
-from "../services/audit.service";
+import { createAuditLog }from "../services/audit.service";
 import { Response } from "express";
 import { AuthRequest } from "../middleware/auth.middleware";
 import {createTeamMemberService,} from "../services/team.service";
