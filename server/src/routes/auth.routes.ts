@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { signup,login, getProfile } from "../controllers/auth.Controller";
+import { signup,login, getProfile, forgotPassword } from "../controllers/auth.Controller";
 import { authMiddleware, } from "../middleware/auth.middleware";
 import { ownerOnlyRoute, } from "../controllers/auth.Controller";
 import { authorize, } from "../middleware/role.middleware";
@@ -41,6 +41,11 @@ router.post(
   "/logout",
   authMiddleware,
   logout
+);
+
+router.post(
+ "/forgot-password",
+ forgotPassword
 );
 
 export default router;

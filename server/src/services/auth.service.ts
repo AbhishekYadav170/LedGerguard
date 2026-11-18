@@ -5,6 +5,7 @@ import User from "../models/User";
 import { createAuditLog }
 from "./audit.service";
 import { generateRefreshToken } from "../utils/generateRefreshToken";
+import crypto from "crypto";
 
 interface SignupData {
   companyName: string;
@@ -38,6 +39,7 @@ export const signupService = async (data: SignupData) => {
 
   return user;
 };
+
 export const loginService = async (email: string, password: string) => {
   const user = await User.findOne({
     email,
@@ -77,4 +79,35 @@ export const loginService = async (email: string, password: string) => {
     accessToken,
     refreshToken,
   };
+};
+
+export const forgotPasswordService =
+  async (email: string) => {
+
+    const user = await User.findOne({
+      email,
+    });
+
+    if (!user) {
+      throw new Error(
+        "User not found"
+      );
+    }
+
+    const resetToken =
+      crypto.randomBytes(32)
+      .toString("hex");
+
+    user.resetPasswordToken =
+      resetToken;
+
+    user.resetPasswordExpire =
+      new Date(
+        Date.now() +
+        15 * 60 * 1000
+      );
+
+    await user.save();
+
+    return resetToken;
 };

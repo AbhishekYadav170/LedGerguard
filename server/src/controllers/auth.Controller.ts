@@ -4,7 +4,11 @@ import { loginService } from "../services/auth.service";
 import { AuthRequest } from "../middleware/auth.middleware";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-import { generateToken } from "../utils/generateToken";
+import { generateToken } from "../utils/generateToken"
+import {
+ forgotPasswordService
+}
+from "../services/auth.service";
 
 
 export const signup = async (
@@ -156,5 +160,37 @@ export const logout = async (
     success: true,
     message: "Logged out",
   });
+
+};
+
+export const forgotPassword =
+async (
+ req: Request,
+ res: Response
+) => {
+
+ try {
+
+  const { email } =
+   req.body;
+
+  const resetToken =
+   await forgotPasswordService(
+     email
+   );
+
+  res.status(200).json({
+   success:true,
+   resetToken,
+  });
+
+ } catch(error:any){
+
+  res.status(400).json({
+   success:false,
+   message:error.message,
+  });
+
+ }
 
 };
