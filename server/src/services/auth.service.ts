@@ -111,3 +111,51 @@ export const forgotPasswordService =
 
     return resetToken;
 };
+
+export const resetPasswordService =
+async (
+ token:string,
+ newPassword:string
+) => {
+
+ const user =
+  await User.findOne({
+   resetPasswordToken:token,
+  });
+
+ if(!user){
+  throw new Error(
+   "Invalid Token"
+  );
+ }
+
+ if(
+  user.resetPasswordExpire &&
+  user.resetPasswordExpire <
+  new Date()
+ ){
+  throw new Error(
+   "Token Expired"
+  );
+ }
+
+ const passwordHash =
+  await bcrypt.hash(
+   newPassword,
+   10
+  );
+
+ user.passwordHash =
+  passwordHash;
+
+ user.resetPasswordToken =
+  null;
+
+ user.resetPasswordExpire =
+  null;
+
+ await user.save();
+
+ return true;
+
+};

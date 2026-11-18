@@ -5,10 +5,8 @@ import { AuthRequest } from "../middleware/auth.middleware";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 import { generateToken } from "../utils/generateToken"
-import {
- forgotPasswordService
-}
-from "../services/auth.service";
+import {forgotPasswordService}from "../services/auth.service";
+import { resetPasswordService }from "../services/auth.service";
 
 
 export const signup = async (
@@ -182,6 +180,41 @@ async (
   res.status(200).json({
    success:true,
    resetToken,
+  });
+
+ } catch(error:any){
+
+  res.status(400).json({
+   success:false,
+   message:error.message,
+  });
+
+ }
+
+};
+
+export const resetPassword =
+async (
+ req: Request,
+ res: Response
+) => {
+
+ try {
+
+  const {
+   token,
+   password
+  } = req.body;
+
+  await resetPasswordService(
+   token,
+   password
+  );
+
+  res.status(200).json({
+   success:true,
+   message:
+    "Password Reset Successful"
   });
 
  } catch(error:any){
