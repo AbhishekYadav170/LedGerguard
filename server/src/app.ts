@@ -7,13 +7,15 @@ from "./routes/customer.routes";
 import teamRoutes
 from "./routes/team.routes";
 import auditRoutes from "./routes/audit.routes";
-
+import { apiLimiter }
+from "./middleware/rateLimiter";
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(apiLimiter);
 
 app.get("/", (req, res) => {
   res.send("LedgerGuard API Running");
