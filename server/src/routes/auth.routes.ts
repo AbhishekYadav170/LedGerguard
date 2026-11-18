@@ -5,19 +5,26 @@ import { ownerOnlyRoute, } from "../controllers/auth.Controller";
 import { authorize, } from "../middleware/role.middleware";
 import { refreshAccessToken,} from "../controllers/auth.Controller";
 import { logout } from "../controllers/auth.Controller";
+import { validate }
+from "../middleware/validate.middleware";
 
+import {
+ signupSchema,
+ loginSchema
+}
+from "../validators/auth.validator";
 
 const router = Router();
 
-router.post(
-  "/signup",
-  signup
-);
+// router.post(
+//   "/signup",
+//   signup
+// );
 
-router.post(
- "/login",
- login
-);
+// router.post(
+//  "/login",
+//  login
+// );
 
 router.get(
   "/me",
@@ -51,6 +58,18 @@ router.post(
 router.post(
  "/reset-password",
  resetPassword
+);
+
+router.post(
+ "/signup",
+ validate(signupSchema),
+ signup
+);
+
+router.post(
+ "/login",
+ validate(loginSchema),
+ login
 );
 
 export default router;
