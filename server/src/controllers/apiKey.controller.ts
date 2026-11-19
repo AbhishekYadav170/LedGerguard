@@ -1,16 +1,7 @@
 import { Response } from "express";
-
-import { AuthRequest }
-from "../middleware/auth.middleware";
-
-import {
- createApiKeyService
-}
-from "../services/apiKey.service";
-import {
- createAuditLog
-}
-from "../services/audit.service";
+import { AuthRequest } from "../middleware/auth.middleware";
+import {createApiKeyService }from "../services/apiKey.service";
+import { createAuditLog } from "../services/audit.service";
 
 export const createApiKey =
 
