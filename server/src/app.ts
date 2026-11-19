@@ -7,8 +7,9 @@ import teamRoutes from "./routes/team.routes";
 import auditRoutes from "./routes/audit.routes";
 import { apiLimiter } from "./middleware/rateLimiter";
 import { errorHandler } from "./middleware/error.middleware";
-import apiKeyRoutes
-from "./routes/apiKey.routes";
+import apiKeyRoutes from "./routes/apiKey.routes";
+import superAdminRoutes
+from "./routes/superAdmin.routes";
 
 const app = express();
 
@@ -43,6 +44,9 @@ app.use(
   auditRoutes
 );
 
-
+app.use(
+ "/api/super-admin",
+ superAdminRoutes
+);
 
 export default app;
