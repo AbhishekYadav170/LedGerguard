@@ -1,12 +1,7 @@
 import { createAuditLog } from "../services/audit.service";
 import { Response } from "express";
-import { AuthRequest }
-from "../middleware/auth.middleware";
-import {
- createCustomerService,
- getCustomersService,
-}
-from "../services/customer.service";
+import { AuthRequest } from "../middleware/auth.middleware";
+import { createCustomerService, getCustomersService, } from "../services/customer.service";
 
 export const createCustomer =
 async (
