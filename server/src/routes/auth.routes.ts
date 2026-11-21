@@ -5,14 +5,8 @@ import { ownerOnlyRoute, } from "../controllers/auth.Controller";
 import { authorize, } from "../middleware/role.middleware";
 import { refreshAccessToken,} from "../controllers/auth.Controller";
 import { logout } from "../controllers/auth.Controller";
-import { validate }
-from "../middleware/validate.middleware";
-
-import {
- signupSchema,
- loginSchema
-}
-from "../validators/auth.validator";
+import { validate } from "../middleware/validate.middleware";
+import { signupSchema, loginSchema } from "../validators/auth.validator";
 
 const router = Router();
 
