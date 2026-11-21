@@ -2,8 +2,7 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken";
 import Tenant from "../models/Tenants";
 import User from "../models/User";
-import { createAuditLog }
-from "./audit.service";
+import { createAuditLog } from "./audit.service";
 import { generateRefreshToken } from "../utils/generateRefreshToken";
 import crypto from "crypto";
 
