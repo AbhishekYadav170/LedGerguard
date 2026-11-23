@@ -11,7 +11,8 @@ const router = Router();
  *     summary: Create Customer
  *     tags:
  *       - Customers
- */
+*/
+
 router.post(
  "/",
  authMiddleware,
