@@ -11,9 +11,7 @@ import apiKeyRoutes from "./routes/apiKey.routes";
 import superAdminRoutes from "./routes/superAdmin.routes";
 import swaggerUi
 from "swagger-ui-express";
-
-import { swaggerSpec }
-from "./config/swagger";
+import { swaggerSpec } from "./config/swagger";
 
 
 const app = express();
