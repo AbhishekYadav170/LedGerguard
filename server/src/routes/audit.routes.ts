@@ -6,6 +6,15 @@ import { authorize } from "../middleware/role.middleware";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /api/audit-logs:
+ *   get:
+ *     summary: Get Audit Logs
+ *     tags:
+ *       - Audit
+ */
+
 router.get(
   "/",
   authMiddleware,

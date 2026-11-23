@@ -9,6 +9,12 @@ import { apiLimiter } from "./middleware/rateLimiter";
 import { errorHandler } from "./middleware/error.middleware";
 import apiKeyRoutes from "./routes/apiKey.routes";
 import superAdminRoutes from "./routes/superAdmin.routes";
+import swaggerUi
+from "swagger-ui-express";
+
+import { swaggerSpec }
+from "./config/swagger";
+
 
 const app = express();
 
@@ -46,6 +52,12 @@ app.use(
 app.use(
  "/api/super-admin",
  superAdminRoutes
+);
+
+app.use(
+ "/api-docs",
+ swaggerUi.serve,
+ swaggerUi.setup(swaggerSpec)
 );
 
 export default app;

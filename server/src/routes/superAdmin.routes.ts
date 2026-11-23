@@ -5,6 +5,15 @@ import { authorize} from "../middleware/role.middleware";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /api/super-admin/tenants:
+ *   get:
+ *     summary: Get All Tenants
+ *     tags:
+ *       - Super Admin
+ */
+
 router.get(
   "/tenants",
   authMiddleware,
@@ -12,6 +21,14 @@ router.get(
   getAllTenants
 );
 
+/**
+ * @swagger
+ * /api/super-admin/tenant/:id/suspend:
+ *   patch:
+ *     summary: Suspend Tenant
+ *     tags:
+ *       - Super Admin
+ */
 router.patch(
   "/tenant/:id/suspend",
   authMiddleware,
@@ -19,6 +36,14 @@ router.patch(
   suspendTenant
 );
 
+/**
+ * @swagger
+ * /api/super-admin/tenant/{id}/activate:
+ *   patch:
+ *     summary: Activate Tenant
+ *     tags:
+ *       - Super Admin
+ */
 router.patch(
   "/tenant/:id/activate",
   authMiddleware,

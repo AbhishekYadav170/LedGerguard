@@ -6,6 +6,15 @@ import { authorize } from "../middleware/role.middleware";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /api/api-keys:
+ *   post:
+ *     summary: Create API Key
+ *     tags:
+ *       - API Keys
+ */
+
 router.post(
  "/",
  authMiddleware,

@@ -24,10 +24,29 @@ router.get(
   ownerOnlyRoute
 );
 
+/**
+ * @swagger
+ * /api/auth/refresh-token:
+ *   post:
+ *     summary: Generate new access token
+ *     tags:
+ *       - Auth
+ */
+
 router.post(
   "/refresh-token",
   refreshAccessToken
 );
+
+
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     summary: Logout User
+ *     tags:
+ *       - Auth
+ */
 
 router.post(
   "/logout",
@@ -45,11 +64,29 @@ router.post(
  resetPassword
 );
 
+/**
+ * @swagger
+ * /api/auth/signup:
+ *   post:
+ *     summary: Register new tenant owner
+ *     tags:
+ *       - Auth
+ */
+
 router.post(
  "/signup",
  validate(signupSchema),
  signup
 );
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Login User
+ *     tags:
+ *       - Auth
+ */
 
 router.post(
  "/login",
