@@ -10,12 +10,47 @@ import { signupSchema, loginSchema } from "../validators/auth.validator";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /api/auth/me:
+ *   get:
+ *     summary: Get logged-in user profile
+ *     description: Returns the profile details of the currently authenticated user.
+ *     tags:
+ *       - Auth
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User profile retrieved successfully
+ *       401:
+ *         description: Unauthorized - Invalid or missing access token
+ */
 
 router.get(
   "/me",
   authMiddleware,
   getProfile
 );
+
+/**
+ * @swagger
+ * /api/auth/owner-only:
+ *   get:
+ *     summary: Access owner-only route
+ *     description: Allows only authenticated users with the Owner role to access this route.
+ *     tags:
+ *       - Auth
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Owner access granted successfully
+ *       401:
+ *         description: Unauthorized - Invalid or missing access token
+ *       403:
+ *         description: Forbidden - Owner role required
+ */
 
 router.get(
   "/owner-only",
