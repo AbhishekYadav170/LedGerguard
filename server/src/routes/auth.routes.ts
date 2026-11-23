@@ -54,11 +54,27 @@ router.post(
   logout
 );
 
+/**
+ * @swagger
+ * /api/auth/forgot-password:
+ *   post:
+ *     summary: Request password reset token
+ *     tags:
+ *       - Auth
+ */
 router.post(
  "/forgot-password",
  forgotPassword
 );
 
+/**
+ * @swagger
+ * /api/auth/reset-password:
+ *   post:
+ *     summary: Reset user password
+ *     tags:
+ *       - Auth
+ */
 router.post(
  "/reset-password",
  resetPassword
@@ -68,9 +84,27 @@ router.post(
  * @swagger
  * /api/auth/signup:
  *   post:
- *     summary: Register new tenant owner
+ *     summary: Register a new tenant and owner
  *     tags:
  *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               companyName:
+ *                 type: string
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User registered successfully
  */
 
 router.post(
@@ -86,6 +120,20 @@ router.post(
  *     summary: Login User
  *     tags:
  *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
  */
 
 router.post(
