@@ -9,8 +9,7 @@ import { apiLimiter } from "./middleware/rateLimiter";
 import { errorHandler } from "./middleware/error.middleware";
 import apiKeyRoutes from "./routes/apiKey.routes";
 import superAdminRoutes from "./routes/superAdmin.routes";
-import swaggerUi
-from "swagger-ui-express";
+import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger";
 
 
