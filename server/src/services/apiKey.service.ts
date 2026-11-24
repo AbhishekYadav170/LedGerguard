@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-
 import ApiKey from "../models/ApiKey";
 
 export const createApiKeyService =
