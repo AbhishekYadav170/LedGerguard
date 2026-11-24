@@ -19,6 +19,7 @@ router.post(
  createCustomer
 );
 
+
 /**
  * @swagger
  * /api/customers:
@@ -27,6 +28,7 @@ router.post(
  *     tags:
  *       - Customers
  */
+
 router.get(
  "/",
  authMiddleware,
