@@ -1,7 +1,6 @@
 import { Response, NextFunction } from "express";
 import { AuthRequest } from "./auth.middleware";
 
-
 export const authorize = (
   ...roles: string[]
 ) => {
