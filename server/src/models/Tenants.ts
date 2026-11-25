@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
 
-
-
 const tenantSchema = new mongoose.Schema(
   {
     name: {
