@@ -22,6 +22,4 @@ router.get(
   getAuditLogs
 );
 
-
-
 export default router;
