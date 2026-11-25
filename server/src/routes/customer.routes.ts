@@ -28,7 +28,6 @@ router.post(
  *     tags:
  *       - Customers
  */
-
 router.get(
  "/",
  authMiddleware,
