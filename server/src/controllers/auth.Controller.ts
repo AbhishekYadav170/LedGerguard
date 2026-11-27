@@ -4,24 +4,34 @@ import { loginService } from "../services/auth.service";
 import { AuthRequest } from "../middleware/auth.middleware";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-import { generateToken } from "../utils/generateToken"
-import {forgotPasswordService}from "../services/auth.service";
-import { resetPasswordService }from "../services/auth.service";
+import { generateToken } from "../utils/generateToken";
+import { forgotPasswordService } from "../services/auth.service";
+import { resetPasswordService } from "../services/auth.service";
 
+// ==========================================
+// SIGNUP
+// ==========================================
 
 export const signup = async (
   req: Request,
   res: Response
 ) => {
   try {
-    const user = await signupService(
-      req.body
-    );
+    const user = await signupService(req.body);
+
+    // Remove sensitive information before sending response
+    const safeUser = user.toObject();
+
+    delete safeUser.passwordHash;
+    delete safeUser.refreshToken;
+    delete safeUser.resetPasswordToken;
+    delete safeUser.resetPasswordExpire;
 
     res.status(201).json({
       success: true,
-      data: user,
+      data: safeUser,
     });
+
   } catch (error: any) {
     res.status(400).json({
       success: false,
@@ -29,70 +39,85 @@ export const signup = async (
     });
   }
 };
+
+// ==========================================
+// LOGIN
+// ==========================================
 
 export const login = async (
   req: Request,
   res: Response
 ) => {
-
   try {
+    const { email, password } = req.body;
 
-    const { email, password }
-      = req.body;
+    const result = await loginService(
+      email,
+      password
+    );
 
-    const result =
-      await loginService(
-        email,
-        password
-      );
+    // Remove sensitive information from user object
+    const safeUser = result.user.toObject();
+
+    delete safeUser.passwordHash;
+    delete safeUser.refreshToken;
+    delete safeUser.resetPasswordToken;
+    delete safeUser.resetPasswordExpire;
 
     res.status(200).json({
       success: true,
-      data: result,
+      data: {
+        user: safeUser,
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
+      },
     });
 
   } catch (error: any) {
-
     res.status(400).json({
       success: false,
       message: error.message,
     });
-
   }
-
 };
+
+// ==========================================
+// GET USER PROFILE
+// ==========================================
 
 export const getProfile = (
   req: AuthRequest,
   res: Response
 ) => {
-
   res.status(200).json({
     success: true,
     user: req.user,
   });
-
 };
+
+// ==========================================
+// OWNER ONLY ROUTE
+// ==========================================
 
 export const ownerOnlyRoute = (
   req: AuthRequest,
   res: Response
 ) => {
-
   res.status(200).json({
     success: true,
-    message:
-      "Welcome Owner",
+    message: "Welcome Owner",
   });
-
 };
+
+// ==========================================
+// REFRESH ACCESS TOKEN
+// ==========================================
 
 export const refreshAccessToken = async (
   req: Request,
   res: Response
 ) => {
   try {
-
     const { refreshToken } = req.body;
 
     if (!refreshToken) {
@@ -133,20 +158,21 @@ export const refreshAccessToken = async (
     });
 
   } catch (error: any) {
-
     return res.status(401).json({
       success: false,
       message: error.message,
     });
-
   }
 };
+
+// ==========================================
+// LOGOUT
+// ==========================================
 
 export const logout = async (
   req: AuthRequest,
   res: Response
 ) => {
-
   await User.findByIdAndUpdate(
     req.user.userId,
     {
@@ -158,72 +184,62 @@ export const logout = async (
     success: true,
     message: "Logged out",
   });
-
 };
 
-export const forgotPassword =
-async (
- req: Request,
- res: Response
+// ==========================================
+// FORGOT PASSWORD
+// ==========================================
+
+export const forgotPassword = async (
+  req: Request,
+  res: Response
 ) => {
+  try {
+    const { email } = req.body;
 
- try {
+    const resetToken = await forgotPasswordService(
+      email
+    );
 
-  const { email } =
-   req.body;
+    res.status(200).json({
+      success: true,
+      resetToken,
+    });
 
-  const resetToken =
-   await forgotPasswordService(
-     email
-   );
-
-  res.status(200).json({
-   success:true,
-   resetToken,
-  });
-
- } catch(error:any){
-
-  res.status(400).json({
-   success:false,
-   message:error.message,
-  });
-
- }
-
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
-export const resetPassword =
-async (
- req: Request,
- res: Response
+// ==========================================
+// RESET PASSWORD
+// ==========================================
+
+export const resetPassword = async (
+  req: Request,
+  res: Response
 ) => {
+  try {
+    const { token, password } = req.body;
 
- try {
+    await resetPasswordService(
+      token,
+      password
+    );
 
-  const {
-   token,
-   password
-  } = req.body;
+    res.status(200).json({
+      success: true,
+      message: "Password Reset Successful",
+    });
 
-  await resetPasswordService(
-   token,
-   password
-  );
-
-  res.status(200).json({
-   success:true,
-   message:
-    "Password Reset Successful"
-  });
-
- } catch(error:any){
-
-  res.status(400).json({
-   success:false,
-   message:error.message,
-  });
-
- }
-
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
+```
