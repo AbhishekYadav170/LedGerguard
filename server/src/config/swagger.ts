@@ -14,7 +14,7 @@ const options = {
     servers: [
       {
         url: "https://ledgerguard-backend-3gd8.onrender.com",
-        description: "Local Development Server",
+        description: "Production Server",
       },
     ],
 
